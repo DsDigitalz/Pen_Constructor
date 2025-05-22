@@ -11,10 +11,22 @@
             margin: 0;
             padding: 0;
         }
+        .main-flex-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 32px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        .pen-details-container,
+        .all-pen-card {
+            flex: 1 1 340px;
+            max-width: 400px;
+            min-width: 280px;
+        }
         .pen-details-container {
             background: #fff;
-            max-width: 400px;
-            margin: 60px auto;
             padding: 32px 24px;
             border-radius: 12px;
             box-shadow: 0 4px 24px rgba(0,0,0,0.08);
@@ -85,18 +97,74 @@
         .close-btn:hover {
             background: #125ea2;
         }
+        .all-pen-card {
+            background: #fff;
+            padding: 18px 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            text-align: left;
+        }
+        .all-pen-card h3 {
+            margin-top: 0;
+            color: #1976d2;
+            text-align: center;
+        }
+        .all-pen-list {
+            max-height: 180px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+        .pen-item {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 0;
+            font-size: 1rem;
+        }
+        .pen-item:last-child {
+            border-bottom: none;
+        }
+        .all-pen-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+        .all-pen-table th, .all-pen-table td {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 6px;
+            text-align: left;
+            font-size: 1rem;
+        }
+        .all-pen-table th {
+            background: #f5f7fa;
+            color: #1976d2;
+            font-weight: 600;
+        }
+        .all-pen-table tr {
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .all-pen-table tr:hover {
+            background: #e3f0fc;
+        }
     </style>
 </head>
 <body>
-    <div class="pen-details-container">
-        <h2>Pen Information</h2>
-        <div class="pen-info">
-            <div><strong>Name:</strong> <span id="penName">Sample Pen</span></div>
-            <div><strong>Color:</strong> <span id="penColor">Blue</span></div>
-            <div><strong>Price:</strong> $<span id="penPrice">1.99</span></div>
+    <div class="main-flex-container">
+        <div class="pen-details-container">
+            <h2>Pen Information</h2>
+            <div class="pen-info">
+                <div><strong>Name:</strong> <span id="penName">Sample Pen</span></div>
+                <div><strong>Color:</strong> <span id="penColor">Blue</span></div>
+                <div><strong>Price:</strong> <span id="penPrice">1.99</span></div>
+            </div>
+            <button class="action-btn" onclick="showPopup('price')">Show Price</button>
+            <button class="action-btn" onclick="showPopup('color')">Show Color</button>
         </div>
-        <button class="action-btn" onclick="showPopup('price')">Show Price</button>
-        <button class="action-btn" onclick="showPopup('color')">Show Color</button>
+        <div class="all-pen-card">
+            <h3>All Pen</h3>
+            <div class="all-pen-list" id="allPenList">
+                <!-- Table will be rendered here -->
+            </div>
+        </div>
     </div>
     <!-- Popup HTML -->
     <div class="popup-overlay" id="popupOverlay">
@@ -105,33 +173,6 @@
             <button class="close-btn" onclick="closePopup()">Close</button>
         </div>
     </div>
-    <script>
-        // Example pen data
-        const pen = {
-            name: "Sample Pen",
-            color: "Blue",
-            price: 1.99
-        };
-
-        // Populate the fields
-        document.getElementById('penName').textContent = pen.name;
-        document.getElementById('penColor').textContent = pen.color;
-        document.getElementById('penPrice').textContent = pen.price;
-
-        function showPopup(type) {
-            const popupOverlay = document.getElementById('popupOverlay');
-            const popupMessage = document.getElementById('popupMessage');
-            if (type === 'price') {
-                popupMessage.textContent = "Price: $" + pen.price;
-            } else if (type === 'color') {
-                popupMessage.textContent = "Color: " + pen.color;
-            }
-            popupOverlay.classList.add('active');
-        }
-
-        function closePopup() {
-            document.getElementById('popupOverlay').classList.remove('active');
-        }
-    </script>
+    <script src="pen_display.js"></script>
 </body>
 </html>
